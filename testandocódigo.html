@@ -2145,38 +2145,132 @@
         </header>
         <!-- #site-header -->
         <div style="border-top: 2px solid #ddd; margin-top: 20px; margin-bottom: 1000px;"></div>
-        <!--Comentários-->
-        <div style="padding: 20px; max-width: 600px; margin: 0 auto;">
-          <h3 style="text-align: center; font-family: Arial, sans-serif; margin-bottom: 10px;">Deixe seu comentário</h3>
-          <form style="display: flex; gap: 10px; align-items: center;">
+        
+        <!--Parte dos Comentários-->
+        <div class="comments-container">
+          <h3>Deixe seu comentário</h3>
+          <form id="commentForm">
             <input
               type="text"
+              id="commentInput"
               placeholder="Digite aqui seu comentário"
-              style="
-                flex: 1;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                font-size: 14px;
-                font-family: Arial, sans-serif;
-              "
+              required
             />
-            <button
-              type="submit"
-              style="
-                background-color: #a30000;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                font-size: 14px;
-                border-radius: 5px;
-                cursor: pointer;
-              "
-            >
-              Enviar
-            </button>
+            <button type="submit">Enviar</button>
           </form>
+          <ul id="commentList" class="comment-list">
+            <!-- Comentários salvos serão exibidos aqui -->
+          </ul>
         </div>
+
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+          }
+          .comments-container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+          }
+          h3 {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-bottom: 10px;
+          }
+          form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+          }
+          input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+          }
+          button {
+            background-color: #a30000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          .comment-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+          }
+          .comment-item {
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+          }
+        </style>
+
+<!-- Script para salvar e exibir comentários -->
+<script>
+  // Referências aos elementos
+  const commentForm = document.getElementById('commentForm');
+  const commentInput = document.getElementById('commentInput');
+  const commentList = document.getElementById('commentList');
+
+  // Função para carregar comentários do LocalStorage
+  function loadComments() {
+    // Obtém os comentários salvos ou um array vazio
+    const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+
+    // Limpa a lista antes de preencher
+    commentList.innerHTML = '';
+
+    // Adiciona cada comentário à lista
+    savedComments.forEach(comment => {
+      addCommentToList(comment);
+    });
+  }
+
+  // Função para salvar um novo comentário no LocalStorage
+  function saveComment(comment) {
+    // Recupera os comentários atuais
+    const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+    // Adiciona o novo comentário
+    savedComments.push(comment);
+    // Salva no LocalStorage
+    localStorage.setItem('comments', JSON.stringify(savedComments));
+  }
+
+  // Função para exibir um comentário na lista
+  function addCommentToList(comment) {
+    const li = document.createElement('li');
+    li.className = 'comment-item';
+    li.textContent = comment;
+    commentList.appendChild(li);
+  }
+
+  // Evento de envio do formulário
+  commentForm.addEventListener('submit', function (e) {
+    e.preventDefault(); // Impede o envio padrão do formulário
+    const comment = commentInput.value.trim(); // Obtém o comentário
+    if (comment) {
+      addCommentToList(comment); // Exibe o comentário na lista
+      saveComment(comment); // Salva no LocalStorage
+      commentInput.value = ''; // Limpa o campo
+    }
+  });
+
+  // Carregar comentários ao abrir a página
+  document.addEventListener('DOMContentLoaded', loadComments);
+</script>
+
+
+
+        
 
         <!-- Rodapé -->
   <footer
