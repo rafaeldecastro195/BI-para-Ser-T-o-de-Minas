@@ -3,3 +3,4 @@ pandas
 sqlalchemy
 flask
 flask-cors
+gunicorn
