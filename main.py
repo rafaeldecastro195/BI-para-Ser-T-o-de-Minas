@@ -93,7 +93,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html")  # Retorna um HTML para a rota principal
+    return render_template("index.html")
+
+@app.route("/telaanalises")
+def tela_analises():
+    return render_template("telaanalises.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
@@ -104,6 +108,3 @@ def handle_etl():
         return jsonify({'sucesso': sucesso})
     except Exception as e:
         return jsonify({'sucesso': False, 'erro': str(e)}), 500
-
-if __name__ == '__main__':
-    app.run(debug=True)
