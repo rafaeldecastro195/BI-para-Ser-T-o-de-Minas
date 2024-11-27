@@ -87,10 +87,16 @@ def execute_etl():
         if 'conexao_original' in locals():
             conexao_original.close()
             
+from flask import Flask, render_template, jsonify
+
+app = Flask(__name__)
+
 @app.route("/")
 def home():
-    return jsonify({"mensagem": "Bem-vindo à API Ser Tão de Minas!"})
+    return render_template("index.html")  # Retorna um HTML para a rota principal
 
+if __name__ == "__main__":
+    app.run(debug=True)
 @app.route('/executar-etl', methods=['POST'])
 def handle_etl():
     try:
