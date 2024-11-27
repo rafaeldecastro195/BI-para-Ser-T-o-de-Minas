@@ -87,6 +87,10 @@ def execute_etl():
         if 'conexao_original' in locals():
             conexao_original.close()
             
+@app.route("/")
+def home():
+    return jsonify({"mensagem": "Bem-vindo à API Ser Tão de Minas!"})
+
 @app.route('/executar-etl', methods=['POST'])
 def handle_etl():
     try:
