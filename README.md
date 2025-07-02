@@ -29,3 +29,6 @@ Professores Orientadores:
  
  - Disponibilização das tabelas do banco de dados transacional usado e do Data Warehouse, permitindo que eles continuem usando em sua forma original ou adaptem da maneira necessária.
 
+## Nota:
+Esse repositório é um fork. Para acessar o repositório original, clique [aqui]([url](https://github.com/Gabriel1265286/ser_tao_de_minas))
+
